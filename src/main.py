@@ -204,6 +204,10 @@ def is_outlier(data: List[str]):
     for bill in data[12:17]:  # Check if bill was 0 more than 4 times
         if int(bill) == 0:
             bill_count += 1
+        elif int(bill) > int(data[1]):  # Bill should never exceed limit
+            return True
+        elif int(bill) < ((int(data[1]) * .4) * -1):  # Amount to be refunded to customer should not be very high ~40%
+            return True
 
     pay_count = 0
     for pay in data[18:23]:  # Check if more than 4 payments were also $0
@@ -265,9 +269,9 @@ def read_file():
     file.close()
 
     # Test output
-    for i in range(1, 7):
-        for instance in months[i]["sex"]["male"]:
-            print(instance)
+    # for i in range(1, 7):
+    #     for instance in months[i]["sex"]["male"]:
+    #         print(instance)
 
 
 if __name__ == '__main__':
