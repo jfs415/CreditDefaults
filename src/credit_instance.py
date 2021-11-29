@@ -21,3 +21,6 @@ class CreditInstance:
 
     def get_pay_amount(self):
         return self.pay_amount
+
+    def __str__(self):
+        return "pay: " + self.pay + "; bill: " + str(self.bill_amount) + "; pay_amount: " + str(self.pay_amount)
