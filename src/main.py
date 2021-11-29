@@ -234,12 +234,14 @@ def categorize(data: List[str]):  # Separate data into each category
     education = data[3]
     marriage = data[4]
     age = data[5]
-    instances = [CreditInstance(1, data[6], int(data[12]), int(data[18])),
-                 CreditInstance(2, data[7], int(data[13]), int(data[19])),
-                 CreditInstance(3, data[8], int(data[14]), int(data[20])),
-                 CreditInstance(4, data[9], int(data[15]), int(data[21])),
-                 CreditInstance(5, data[10], int(data[16]), int(data[22])),
-                 CreditInstance(6, data[11], int(data[17]), int(data[23]))
+    default = data[len(data) - 1]
+
+    instances = [CreditInstance(1, data[6], int(data[12]), int(data[18]), default),
+                 CreditInstance(2, data[7], int(data[13]), int(data[19]), default),
+                 CreditInstance(3, data[8], int(data[14]), int(data[20]), default),
+                 CreditInstance(4, data[9], int(data[15]), int(data[21]), default),
+                 CreditInstance(5, data[10], int(data[16]), int(data[22]), default),
+                 CreditInstance(6, data[11], int(data[17]), int(data[23]), default)
                  ]
 
     for instance in instances:
@@ -263,9 +265,9 @@ def read_file():
     file.close()
 
     # Test output
-    # for i in range(1, 7):
-    #     for instance in months[i]["sex"]["male"]:
-    #         print(instance)
+    for i in range(1, 7):
+        for instance in months[i]["sex"]["male"]:
+            print(instance)
 
 
 if __name__ == '__main__':
