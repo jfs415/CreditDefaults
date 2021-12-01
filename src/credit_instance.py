@@ -25,7 +25,7 @@ class CreditInstance:
 
 
     def get_pay(self):
-        return self.pay
+        return self.pay_type
 
 
     def get_bill_amount(self):
