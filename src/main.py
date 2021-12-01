@@ -1,190 +1,591 @@
+import json
 import os.path
+
+import credit_instance
 from src.credit_instance import CreditInstance
 from typing import List
 
 months = {
     1: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     },
     2: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     },
     3: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     },
     4: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     },
     5: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     },
     6: {
         "sex": {
-            "male": [],
-            "female": []
+            "male": {
+                "data": [],
+                "averages": None
+            },
+            "female": {
+                "data": [],
+                "averages": None
+            }
         },
         "education": {
-            "graduate_school": [],
-            "university": [],
-            "high_school": [],
-            "other": []
+            "graduate_school": {
+                "data": [],
+                "averages": None
+            },
+            "university": {
+                "data": [],
+                "averages": None
+            },
+            "high_school": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "marriage": {
-            "married": [],
-            "single": [],
-            "other": []
+            "married": {
+                "data": [],
+                "averages": None
+            },
+            "single": {
+                "data": [],
+                "averages": None
+            },
+            "other": {
+                "data": [],
+                "averages": None
+            }
         },
         "balance_limit": {
-            "1000_9999": [],
-            "10000_49999": [],
-            "50000_249999": [],
-            "250000_1000000": []
+            "10000_24999": {
+                "data": [],
+                "averages": None
+            },
+            "25000_49999": {
+                "data": [],
+                "averages": None
+            },
+            "50000_249999": {
+                "data": [],
+                "averages": None
+            },
+            "250000_1000000": {
+                "data": [],
+                "averages": None
+            }
         },
         "age": {
-            "18_25": [],
-            "26_39": [],
-            "40_64": [],
-            "65_plus": []
+            "18_25": {
+                "data": [],
+                "averages": None
+            },
+            "26_39": {
+                "data": [],
+                "averages": None
+            },
+            "40_64": {
+                "data": [],
+                "averages": None
+            },
+            "65_plus": {
+                "data": [],
+                "averages": None
+            }
         }
     }
 }
 
 
+def average_bill_amount(data: List[CreditInstance]):
+    total = 0
+    for instance in data:
+        total += instance.get_bill_amount()
+
+    return total / len(data)
+
+
+def average_pay_amount(data: List[CreditInstance]):
+    total = 0
+    for instance in data:
+        total += instance.get_pay_amount()
+
+    return total / len(data)
+
+
+def average_pay_type(data: List[CreditInstance]):
+    no_consumption = 0
+    pay_duly = 0
+    revolving_credit = 0
+    one_month = 0
+    two_months = 0
+    three_months = 0
+    four_months = 0
+    five_months = 0
+    six_months = 0
+    seven_months = 0
+    eight_months = 0
+    nine_months = 0
+    ten_months_plus = 0
+
+    for instance in data:
+        if instance.pay_type in "no_consumption":
+            no_consumption += 1
+        elif instance.pay_type in "pay_duly":
+            pay_duly += 1
+        elif instance.pay_type in "revolving_credit":
+            revolving_credit += 1
+        elif instance.pay_type in "one_month":
+            one_month += 1
+        elif instance.pay_type in "two_months":
+            two_months += 1
+        elif instance.pay_type in "three_months":
+            three_months += 1
+        elif instance.pay_type in "four_months":
+            four_months += 1
+        elif instance.pay_type in "five_months":
+            five_months += 1
+        elif instance.pay_type in "six_months":
+            six_months += 1
+        elif instance.pay_type in "seven_months":
+            seven_months += 1
+        elif instance.pay_type in "eight_months":
+            eight_months += 1
+        elif instance.pay_type in "nine_months":
+            nine_months += 1
+        elif instance.pay_type in "ten_months_plus":
+            ten_months_plus += 1
+
+    pay_types = {
+        "no_consumption": (no_consumption / len(data)),
+        "pay_duly": (pay_duly / len(data)),
+        "revolving_credit": (revolving_credit / len(data)),
+        "one_month": (one_month / len(data)),
+        "two_months": (two_months / len(data)),
+        "three_months": (three_months / len(data)),
+        "four_months": (four_months / len(data)),
+        "five_months": (five_months / len(data)),
+        "six_months": (six_months / len(data)),
+        "seven_months": (seven_months / len(data)),
+        "eight_months": (eight_months / len(data)),
+        "nine_months": (nine_months / len(data)),
+        "ten_months_plus": (ten_months_plus / len(data))
+    }
+
+    return pay_types
+
+
+def average_default(data: List[CreditInstance]):
+    default_count = 0
+    for instance in data:
+        if instance.will_default == 'yes':
+            default_count += 1
+
+    defaults = {
+        "default_count": default_count,
+        "percentage:": default_count / len(data)
+    }
+
+    return defaults
+
+
 def calculate_bal_limit_key(limit: int):  # Calculates which key the balance limit belongs in
-    if 1000 <= limit <= 9999:
-        return '1000_9999'
-    elif 10000 <= limit <= 49999:
-        return '10000_49999'
+    if 10000 <= limit <= 24999:
+        return '10000_24999'
+    elif 25000 <= limit <= 49999:
+        return '25000_49999'
     elif 50000 <= limit <= 249999:
         return '50000_249999'
     elif 250000 <= limit <= 1000000:
@@ -220,16 +621,41 @@ def is_outlier(data: List[str]):
     return False
 
 
-def average():  # TODO: Average out data
-    print("TODO")
+def get_counts():
+    print("Counts")
+
+
+def calculate_averages(data: List[CreditInstance]):
+    bill_amount = average_bill_amount(data)
+    pay_amount = average_pay_amount(data)
+    default = average_default(data)
+    pay_types = average_pay_type(data)
+
+    averages = {
+        "pay_type": pay_types,
+        "bill_amount": bill_amount,
+        "pay_amount": pay_amount,
+        "default": default
+    }
+
+    return averages
+
+
+def apply_averages():
+    for month in months.keys():
+        for attribute in months[month].keys():
+            for sub in months[month][attribute]:
+                months[month][attribute][sub]["averages"] = calculate_averages(months[month][attribute][sub]["data"])
+                # print(months[month][attribute][sub]["data"].__str__() + "\n")
+                # print(str(calculate_averages(months[month][attribute][sub]["data"])) + "\n")
 
 
 def apply_category(bal_limit: str, sex: str, education: str, marriage: str, age: str, instance: CreditInstance):
-    months[instance.get_month()]["balance_limit"][bal_limit].append(instance)
-    months[instance.get_month()]["sex"][sex].append(instance)
-    months[instance.get_month()]["education"][education].append(instance)
-    months[instance.get_month()]["marriage"][marriage].append(instance)
-    months[instance.get_month()]["age"][age].append(instance)
+    months[instance.get_month()]["balance_limit"][bal_limit]["data"].append(instance)
+    months[instance.get_month()]["sex"][sex]["data"].append(instance)
+    months[instance.get_month()]["education"][education]["data"].append(instance)
+    months[instance.get_month()]["marriage"][marriage]["data"].append(instance)
+    months[instance.get_month()]["age"][age]["data"].append(instance)
 
 
 def categorize(data: List[str]):  # Separate data into each category
@@ -268,10 +694,12 @@ def read_file():
                 process_line(line.strip())
     file.close()
 
+    apply_averages()
+
     # Test output
-    # for i in range(1, 7):
-    #     for instance in months[i]["sex"]["male"]:
-    #         print(instance)
+    for instance in months[1]["sex"]["male"]["data"]:
+        print(json.dumps(instance.get_data(), sort_keys=True, indent=4))
+        # print(json.dumps(months[1]["sex"]["male"]["averages"], sort_keys=True, indent=4))
 
 
 if __name__ == '__main__':
