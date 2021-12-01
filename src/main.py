@@ -1,7 +1,6 @@
 import json
 import os.path
 
-import credit_instance
 from src.credit_instance import CreditInstance
 from typing import List
 
@@ -621,10 +620,6 @@ def is_outlier(data: List[str]):
     return False
 
 
-def get_counts():
-    print("Counts")
-
-
 def calculate_averages(data: List[CreditInstance]):
     bill_amount = average_bill_amount(data)
     pay_amount = average_pay_amount(data)
@@ -646,8 +641,6 @@ def apply_averages():
         for attribute in months[month].keys():
             for sub in months[month][attribute]:
                 months[month][attribute][sub]["averages"] = calculate_averages(months[month][attribute][sub]["data"])
-                # print(months[month][attribute][sub]["data"].__str__() + "\n")
-                # print(str(calculate_averages(months[month][attribute][sub]["data"])) + "\n")
 
 
 def apply_category(bal_limit: str, sex: str, education: str, marriage: str, age: str, instance: CreditInstance):
@@ -699,7 +692,8 @@ def read_file():
     # Test output
     for instance in months[1]["sex"]["male"]["data"]:
         print(json.dumps(instance.get_data(), sort_keys=True, indent=4))
-        # print(json.dumps(months[1]["sex"]["male"]["averages"], sort_keys=True, indent=4))
+
+    print(json.dumps(months[1]["sex"]["male"]["averages"], sort_keys=True, indent=4))
 
 
 if __name__ == '__main__':
