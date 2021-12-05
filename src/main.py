@@ -8,86 +8,85 @@ import csv
 import json
 import os.path
 
-from src.credit_instance import CreditInstance
 from typing import List
 
 attribute_data = {
     "sex": {
         "male": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "female": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         }
     },
     "education": {
         "graduate_school": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "university": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "high_school": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "other": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         }
     },
     "marriage": {
         "married": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "single": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "other": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         }
     },
     "balance_limit": {
         "10000_24999": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "25000_49999": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "50000_249999": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "250000_1000000": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         }
     },
     "age": {
         "18_25": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "26_39": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "40_64": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         },
         "65_plus": {
-            "data": [],
-            "averages": None
+            "default_count": 0,
+            "default_percentage": 0
         }
     }
 }
@@ -95,102 +94,7 @@ attribute_data = {
 outlier_count = 0
 parsed = []
 header = []
-
-
-def get_month_averages():
-    print("Null")
-
-
-def average_bill_amount(data: List[CreditInstance]):
-    total = 0
-    for instance in data:
-        total += instance.get_bill_amount()
-
-    return total / (len(data) / 6)
-
-
-def average_pay_amount(data: List[CreditInstance]):
-    total = 0
-    for instance in data:
-        total += instance.get_pay_amount()
-
-    return total / (len(data) / 6)
-
-
-def average_pay_type(data: List[CreditInstance]):
-    no_consumption = 0
-    pay_duly = 0
-    revolving_credit = 0
-    one_month = 0
-    two_months = 0
-    three_months = 0
-    four_months = 0
-    five_months = 0
-    six_months = 0
-    seven_months = 0
-    eight_months = 0
-    nine_months = 0
-    ten_months_plus = 0
-
-    for instance in data:
-        if instance.pay_type in "no_consumption":
-            no_consumption += 1
-        elif instance.pay_type in "pay_duly":
-            pay_duly += 1
-        elif instance.pay_type in "revolving_credit":
-            revolving_credit += 1
-        elif instance.pay_type in "one_month":
-            one_month += 1
-        elif instance.pay_type in "two_months":
-            two_months += 1
-        elif instance.pay_type in "three_months":
-            three_months += 1
-        elif instance.pay_type in "four_months":
-            four_months += 1
-        elif instance.pay_type in "five_months":
-            five_months += 1
-        elif instance.pay_type in "six_months":
-            six_months += 1
-        elif instance.pay_type in "seven_months":
-            seven_months += 1
-        elif instance.pay_type in "eight_months":
-            eight_months += 1
-        elif instance.pay_type in "nine_months":
-            nine_months += 1
-        elif instance.pay_type in "ten_months_plus":
-            ten_months_plus += 1
-
-    pay_types = {
-        "no_consumption": (no_consumption / (len(data) / 6)),
-        "pay_duly": (pay_duly / (len(data) / 6)),
-        "revolving_credit": (revolving_credit / (len(data) / 6)),
-        "one_month": (one_month / (len(data) / 6)),
-        "two_months": (two_months / (len(data) / 6)),
-        "three_months": (three_months / (len(data) / 6)),
-        "four_months": (four_months / (len(data) / 6)),
-        "five_months": (five_months / (len(data) / 6)),
-        "six_months": (six_months / (len(data) / 6)),
-        "seven_months": (seven_months / (len(data) / 6)),
-        "eight_months": (eight_months / (len(data) / 6)),
-        "nine_months": (nine_months / (len(data) / 6)),
-        "ten_months_plus": (ten_months_plus / (len(data) / 6))
-    }
-
-    return pay_types
-
-
-def average_default(data: List[CreditInstance]):
-    default_count = 0
-    for instance in data:
-        if instance.will_default == 'yes':
-            default_count += 1
-
-    defaults = {
-        "default_count": (default_count / 6),
-        "percentage:": default_count / (len(data) / 6)
-    }
-
-    return defaults
+def_count = 0
 
 
 def calculate_bal_limit_key(limit: int):  # Calculates which key the balance limit belongs in
@@ -233,34 +137,14 @@ def is_outlier(data: List[str]):
     return False
 
 
-def calculate_averages(data: List[CreditInstance]):
-    bill_amount = average_bill_amount(data)
-    pay_amount = average_pay_amount(data)
-    default = average_default(data)
-    pay_types = average_pay_type(data)
-
-    averages = {
-        "pay_type": pay_types,
-        "bill_amount": bill_amount,
-        "pay_amount": pay_amount,
-        "default": default
-    }
-
-    return averages
-
-
 def apply_averages():
     for attribute in attribute_data.keys():
         for sub in attribute_data[attribute]:
-            attribute_data[attribute][sub]["averages"] = calculate_averages(attribute_data[attribute][sub]["data"])
+            attribute_data[attribute][sub]["default_percentage"] = average_default(attribute_data[attribute][sub]["default_count"])
 
 
-def apply_category(bal_limit: str, sex: str, education: str, marriage: str, age: str, instance: CreditInstance):
-    attribute_data["balance_limit"][bal_limit]["data"].append(instance)
-    attribute_data["sex"][sex]["data"].append(instance)
-    attribute_data["education"][education]["data"].append(instance)
-    attribute_data["marriage"][marriage]["data"].append(instance)
-    attribute_data["age"][age]["data"].append(instance)
+def average_default(count: int):
+    return ((count / def_count) * 100) / 5  # Divide by 5 since that the number of attributes we're looking at
 
 
 def categorize(data: List[str]):  # Separate data into each category
@@ -269,18 +153,13 @@ def categorize(data: List[str]):  # Separate data into each category
     education = data[3]
     marriage = data[4]
     age = data[5]
-    default = data[len(data) - 1]
 
-    instances = [CreditInstance(1, data[6], int(data[12]), int(data[18]), default),
-                 CreditInstance(2, data[7], int(data[13]), int(data[19]), default),
-                 CreditInstance(3, data[8], int(data[14]), int(data[20]), default),
-                 CreditInstance(4, data[9], int(data[15]), int(data[21]), default),
-                 CreditInstance(5, data[10], int(data[16]), int(data[22]), default),
-                 CreditInstance(6, data[11], int(data[17]), int(data[23]), default)
-                 ]
-
-    for instance in instances:
-        apply_category(bal_limit, sex, education, marriage, age, instance)
+    if data[len(data) - 1] in 'yes':
+        attribute_data["balance_limit"][bal_limit]["default_count"] += 1
+        attribute_data["sex"][sex]["default_count"] += 1
+        attribute_data["education"][education]["default_count"] += 1
+        attribute_data["marriage"][marriage]["default_count"] += 1
+        attribute_data["age"][age]["default_count"] += 1
 
 
 def write_csv():
@@ -294,11 +173,15 @@ def write_csv():
 
 def process_line(line: str):  # Process each line
     global outlier_count
+    global def_count
+
     data = line.split(',')
 
     if not is_outlier(data):
         categorize(data)
         parsed.append(data)
+        if data[len(data) - 1] in 'yes':
+            def_count += 1
     else:
         outlier_count += 1
 
@@ -321,11 +204,19 @@ def read_file():
     print("There were " + str(outlier_count) + " outliers")
     apply_averages()
 
-    # print(len(attribute_data["age"]["26_39"]["data"]) / 6)
-    # for k, v in attribute_data["age"].items():
+    # Output
+    print(json.dumps(attribute_data, indent=4))
+
+    # Test verification
+    # percent = 0
+    # for k, v in attribute_data.items():
     #     print(k)
-    #     print(json.dumps(v["averages"], indent=4) + "\n")
-    # print(json.dumps(attribute_data["age"]["18_25"]["averages"], indent=4))
+    #     for subK, subV in attribute_data[k].items():
+    #         print(subK)
+    #         print(json.dumps(subV, indent=4))
+    #         percent += subV["default_percentage"]
+    #
+    # print(round(percent, 2))
 
 
 if __name__ == '__main__':
