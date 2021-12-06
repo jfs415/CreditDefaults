@@ -202,10 +202,11 @@ def read_file():
     # write_csv()
 
     print("There were " + str(outlier_count) + " outliers")
+    print("There were " + str(def_count) + " defaults in the cleaned dataset")
     apply_averages()
 
     # Output
-    print(json.dumps(attribute_data, indent=4))
+    print(json.dumps(attribute_data, indent=4) + "\n\n")
 
     # Test verification
     # percent = 0
